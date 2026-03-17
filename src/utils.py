@@ -7,6 +7,7 @@ from src.product import Product
 
 
 def read_json(file_path: str) -> List[Dict[str, Any]]:
+    """Функция для чтения JSON файла, которая возвращает список словарей"""
     full_path = os.path.abspath(file_path)
     with open(full_path, "r", encoding="UTF-8") as file:
         dict_file = json.load(file)
@@ -18,6 +19,7 @@ def read_json(file_path: str) -> List[Dict[str, Any]]:
 
 
 def objects_from_json(dict_file: List[Dict[str, Any]]) -> List[Category]:
+    """Функция для принимает словарь-файл, а возвращает лист объектов и классов."""
     class_objects = []
     for file_dict in dict_file:
         products = []
