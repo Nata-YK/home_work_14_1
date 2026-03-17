@@ -1,13 +1,8 @@
 from src.category import Category
 from src.product import Product
-
-
-def print_hi(name):
-    print(f"Hi, {name}")
-
+from src.utils import objects_from_json, read_json
 
 if __name__ == "__main__":
-    print_hi("PyCharm")
     product1 = Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
     product2 = Product("Iphone 15", "512GB, Gray space", 210000.0, 8)
     product3 = Product("Xiaomi Redmi Note 11", "1024GB, Синий", 31000.0, 14)
@@ -53,3 +48,8 @@ if __name__ == "__main__":
 
     print(Category.category_count)
     print(Category.total_quantity)
+
+    raw_dict = read_json("data/products.json")
+    objects_category = objects_from_json(raw_dict)
+    print(f"{objects_category[0].name}, {objects_category[1].name}")
+    print(objects_category[0].products, objects_category[1].products)
