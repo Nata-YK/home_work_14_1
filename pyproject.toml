@@ -8,6 +8,7 @@ authors = [
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "requests (>=2.32.5,<3.0.0)"
 ]
 
 
@@ -22,15 +23,25 @@ black = "^26.3.1"
 isort = "^8.0.1"
 
 
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^9.0.2"
+pytest-cov = "^7.0.0"
+
 [tool.mypy]
 disallow_untyped_defs = true
 no_implicit_optional = true
 warn_return_any = true
 exclude = 'venv'
-
+python_version = "3.13"
+ignore_missing_imports = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+warn_unused_configs = true
 
 
 [tool.black]
+target-version = ['py313']
 # Максимальная длина строки
 line-length = 119
 # Файлы, которые не нужно форматировать
