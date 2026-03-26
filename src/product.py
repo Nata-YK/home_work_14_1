@@ -13,7 +13,7 @@ class Product:
         Product.product_count += 1
 
     @property
-    def price(self):
+    def price(self) -> None:
         return self.__price
 
     @price.setter
@@ -26,19 +26,9 @@ class Product:
     @classmethod
     def new_product(cls, product_data: dict):
         """Класс-метод для создания нового продукта из словаря"""
-        return cls(
-            product_data["name"],
-            product_data["description"],
-            product_data["price"],
-            product_data["quantity"]
-        )
+        return cls(product_data["name"], product_data["description"], product_data["price"], product_data["quantity"])
 
+    @property
     def get_info(self) -> str:
         """Метод для получения информации о продукте"""
-        return f"{self.name} - {self.price} руб. (в наличии: {self.quantity} шт.)"
-
-
-
-
-
-
+        return f"{self.name}, {self.price} руб. Остаток: {self.quantity} шт.)"

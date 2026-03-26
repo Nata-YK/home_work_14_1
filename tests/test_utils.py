@@ -1,4 +1,4 @@
-from src.utils import read_json, objects_from_json
+from src.utils import objects_from_json, read_json
 
 
 def test_read_json() -> None:
@@ -14,17 +14,13 @@ def test_objects_from_json_two_categories():
         {
             "name": "Смартфоны",
             "description": "Телефоны",
-            "products": [
-                {"name": "Samsung", "description": "desc", "price": 100, "quantity": 5}
-            ]
+            "products": [{"name": "Samsung", "description": "desc", "price": 100, "quantity": 5}],
         },
         {
             "name": "Телевизоры",
             "description": "TV",
-            "products": [
-                {"name": "LG", "description": "desc", "price": 200, "quantity": 3}
-            ]
-        }
+            "products": [{"name": "LG", "description": "desc", "price": 200, "quantity": 3}],
+        },
     ]
 
     result = objects_from_json(data)
@@ -36,15 +32,9 @@ def test_objects_from_json_two_categories():
     assert len(result[1].products) == 1
 
 
-def test_objects_from_json_empty_products():
+def test_objects_from_json_empty_products() -> None:
     """Тест с категорией без продуктов"""
-    data = [
-        {
-            "name": "Пустая категория",
-            "description": "Нет продуктов",
-            "products": []
-        }
-    ]
+    data = [{"name": "Пустая категория", "description": "Нет продуктов", "products": []}]
 
     result = objects_from_json(data)
 
@@ -53,7 +43,7 @@ def test_objects_from_json_empty_products():
     assert len(result[0].products) == 0
 
 
-def test_objects_from_json_empty_list():
+def test_objects_from_json_empty_list() -> None:
     """Тест с пустым списком"""
     result = objects_from_json([])
 

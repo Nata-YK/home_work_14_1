@@ -35,23 +35,32 @@ def test_category(category_fixture: List[Category]) -> None:
     assert len(category_fixture[0].products) == 3
     assert len(category_fixture[1].products) == 1
 
+
 def test_category_creation(category_fixture):
     """Тест создания категорий"""
     category1, category2 = category_fixture
 
     assert category1.name == "Смартфоны"
-    assert category1.description == "Смартфоны, как средство не только коммуникации, но и получение дополнительных функций для удобства жизни"
+    assert (
+        category1.description
+        == "Смартфоны, как средство не только коммуникации, но и получение дополнительных функций для удобства жизни"
+    )
     assert len(category1.products) == 3
 
     assert category2.name == "Телевизоры"
-    assert category2.description == "Современный телевизор, который позволяет наслаждаться просмотром, станет вашим другом и помощником"
+    assert (
+        category2.description
+        == "Современный телевизор, который позволяет наслаждаться просмотром, станет вашим другом и помощником"
+    )
     assert len(category2.products) == 1
+
 
 def test_category_count_increment(single_category_fixture):
     """Тест увеличения счетчика категорий"""
     initial_count = Category.category_count
     Category("New Category", "Description", [])
     assert Category.category_count == initial_count + 1
+
 
 def test_product_count_in_category(category_fixture):
     """Тест подсчета количества продуктов в категории"""
@@ -63,6 +72,7 @@ def test_total_quantity_in_category(category_fixture):
     """Тест подсчета общего количества товаров"""
     # 5 + 8 + 14 + 7 = 34
     assert Category.total_quantity == 34
+
 
 def test_add_product(single_category_fixture):
     """Тест добавления продукта в категорию"""
@@ -78,11 +88,13 @@ def test_add_product(single_category_fixture):
     assert Category.product_count == initial_count + 1
     assert Category.total_quantity == initial_quantity + new_product.quantity
 
+
 def test_add_product_with_none(single_category_fixture):
     """Тест добавления None в категорию"""
     initial_count = Category.product_count
     single_category_fixture.add_product(None)
     assert Category.product_count == initial_count  # Счетчик не должен увеличиться
+
 
 def test_products_property_returns_list(single_category_fixture):
     """Тест свойства products (должно возвращать список)"""
@@ -118,6 +130,7 @@ def test_total_products_in_all_categories(category_fixture: List[Category]) -> N
     total_products = sum(len(category.products) for category in category_fixture)
     assert total_products == 4  # 3 + 1
 
+
 def test_product_creation(product_fixture):
     """Тест создания продукта"""
     assert product_fixture.name == "Samsung Galaxy C23 Ultra"
@@ -125,14 +138,17 @@ def test_product_creation(product_fixture):
     assert product_fixture.price == 180000.0
     assert product_fixture.quantity == 5
 
+
 def test_price_getter(product_fixture):
     """Тест получения цены через property"""
     assert product_fixture.price == 180000.0
+
 
 def test_price_setter_valid(product_fixture):
     """Тест установки корректной цены"""
     product_fixture.price = 200000.0
     assert product_fixture.price == 200000.0
+
 
 def test_price_setter_zero(product_fixture, capsys):
     """Тест установки нулевой цены"""

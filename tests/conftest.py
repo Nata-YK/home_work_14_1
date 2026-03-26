@@ -83,7 +83,7 @@ def category_fixture() -> list:
         Category(
             name="Смартфоны",
             description="Смартфоны, как средство не только коммуникации, но и получение дополнительных функций "
-                        "для удобства жизни",
+            "для удобства жизни",
             products=[
                 Product(
                     name="Samsung Galaxy S23 Ultra",
@@ -98,7 +98,7 @@ def category_fixture() -> list:
         Category(
             name="Телевизоры",
             description="Современный телевизор, который позволяет наслаждаться просмотром, станет вашим другом "
-                        "и помощником",
+            "и помощником",
             products=[Product(name='55" QLED 4K', description="Фоновая подсветка", price=123000.0, quantity=7)],
         ),
     ]
