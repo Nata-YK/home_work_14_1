@@ -25,8 +25,8 @@ class Category:
                 Category.total_quantity += product.quantity  # сумма quantity
 
     @property
-    def products(self) -> None:
-        """Свойство, возвращающее список продуктов"""
+    def products(self) -> List["Product"]:
+        """Геттер, возвращающий список продуктов"""
         return self.__products
 
     def add_product(self, product: "Product") -> None:
@@ -34,7 +34,7 @@ class Category:
         Метод для добавления товара в категорию
         Принимает объект класса Product и добавляет его в приватный список.
         """
-        if product:
+        if product is not None:
             self.__products.append(product)
             Category.product_count += 1
             Category.total_quantity += product.quantity
@@ -42,4 +42,4 @@ class Category:
     @property
     def get_info(self) -> str:
         """Метод для получения информации о категории"""
-        return f"Category('{self.name}', '{self.description}', {self.__products})"
+        return f"Категория: {self.name}, Товаров: {len(self.__products)}.\n"

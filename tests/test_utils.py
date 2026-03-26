@@ -8,7 +8,7 @@ def test_read_json() -> None:
     assert len(data) > 0
 
 
-def test_objects_from_json_two_categories():
+def test_objects_from_json_two_categories() -> None:
     """Тест с двумя категориями"""
     data = [
         {

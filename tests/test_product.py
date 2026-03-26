@@ -1,4 +1,4 @@
-from typing import List
+from typing import Any, List
 
 from src.category import Category
 from src.product import Product
@@ -36,7 +36,7 @@ def test_category(category_fixture: List[Category]) -> None:
     assert len(category_fixture[1].products) == 1
 
 
-def test_category_creation(category_fixture):
+def test_category_creation(category_fixture: List[Category]) -> None:
     """Тест создания категорий"""
     category1, category2 = category_fixture
 
@@ -55,26 +55,26 @@ def test_category_creation(category_fixture):
     assert len(category2.products) == 1
 
 
-def test_category_count_increment(single_category_fixture):
+def test_category_count_increment(single_category_fixture: Category) -> None:
     """Тест увеличения счетчика категорий"""
     initial_count = Category.category_count
     Category("New Category", "Description", [])
     assert Category.category_count == initial_count + 1
 
 
-def test_product_count_in_category(category_fixture):
+def test_product_count_in_category(category_fixture: List[Category]) -> None:
     """Тест подсчета количества продуктов в категории"""
     # В первой категории 3 продукта, во второй 1 продукт
     assert Category.product_count == 4
 
 
-def test_total_quantity_in_category(category_fixture):
+def test_total_quantity_in_category(category_fixture: List[Category]) -> None:
     """Тест подсчета общего количества товаров"""
     # 5 + 8 + 14 + 7 = 34
     assert Category.total_quantity == 34
 
 
-def test_add_product(single_category_fixture):
+def test_add_product(single_category_fixture: Category) -> None:
     """Тест добавления продукта в категорию"""
     initial_count = Category.product_count
     initial_quantity = Category.total_quantity
@@ -89,14 +89,22 @@ def test_add_product(single_category_fixture):
     assert Category.total_quantity == initial_quantity + new_product.quantity
 
 
-def test_add_product_with_none(single_category_fixture):
-    """Тест добавления None в категорию"""
+def test_add_product_with_none(single_category_fixture: Category) -> None:
+    """Тест добавления None в категорию - ничего не происходит"""
     initial_count = Category.product_count
+    initial_quantity = Category.total_quantity
+    initial_products_len = len(single_category_fixture.products)
+
+    # Добавляем None - метод должен обработать это корректно
     single_category_fixture.add_product(None)
-    assert Category.product_count == initial_count  # Счетчик не должен увеличиться
+
+    # Проверяем, что ничего не изменилось
+    assert len(single_category_fixture.products) == initial_products_len
+    assert Category.product_count == initial_count
+    assert Category.total_quantity == initial_quantity
 
 
-def test_products_property_returns_list(single_category_fixture):
+def test_products_property_returns_list(single_category_fixture: Category) -> None:
     """Тест свойства products (должно возвращать список)"""
     products = single_category_fixture.products
     assert isinstance(products, list)
@@ -131,7 +139,7 @@ def test_total_products_in_all_categories(category_fixture: List[Category]) -> N
     assert total_products == 4  # 3 + 1
 
 
-def test_product_creation(product_fixture):
+def test_product_creation(product_fixture: "Product") -> None:
     """Тест создания продукта"""
     assert product_fixture.name == "Samsung Galaxy C23 Ultra"
     assert product_fixture.description == "256GB, Серый цвет, 200MP камера"
@@ -139,18 +147,18 @@ def test_product_creation(product_fixture):
     assert product_fixture.quantity == 5
 
 
-def test_price_getter(product_fixture):
+def test_price_getter(product_fixture: "Product") -> None:
     """Тест получения цены через property"""
     assert product_fixture.price == 180000.0
 
 
-def test_price_setter_valid(product_fixture):
+def test_price_setter_valid(product_fixture: "Product") -> None:
     """Тест установки корректной цены"""
     product_fixture.price = 200000.0
     assert product_fixture.price == 200000.0
 
 
-def test_price_setter_zero(product_fixture, capsys):
+def test_price_setter_zero(product_fixture: "Product", capsys: Any) -> None:
     """Тест установки нулевой цены"""
     original_price = product_fixture.price
     product_fixture.price = 0
