@@ -1,11 +1,11 @@
 import json
-import os
-from unittest.mock import patch, mock_open
+from unittest.mock import mock_open, patch
 
+from src.category import Category
 from src.utils import objects_from_json, read_json
 
 
-def test_read_json(single_category_fixture) -> None:
+def test_read_json(single_category_fixture: Category) -> None:
     """Тест чтения JSON файла"""
     test_data = [
         {
