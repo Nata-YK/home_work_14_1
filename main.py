@@ -84,7 +84,7 @@ if __name__ == "__main__":
     print(new_product.description)
     print(new_product.price)
     print(new_product.quantity)
-    print(new_product.get_info)
+
     new_product.price = 800
     print(new_product.price)
 
@@ -92,4 +92,3 @@ if __name__ == "__main__":
     print(new_product.price)
     new_product.price = 0
     print(new_product.price)
-    print(category1.get_info)

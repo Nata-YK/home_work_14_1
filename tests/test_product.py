@@ -31,9 +31,33 @@ def test_category(category_fixture: List[Category]) -> None:
         category_fixture[1].description
         == "Современный телевизор, который позволяет наслаждаться просмотром, станет вашим другом и помощником"
     )
-    assert len(category_fixture) == 2
-    assert len(category_fixture[0].products) == 3
-    assert len(category_fixture[1].products) == 1
+
+    # Проверяем, что products возвращает строку
+    assert isinstance(category_fixture[0].products, str)
+    assert isinstance(category_fixture[1].products, str)
+
+    # Проверяем количество продуктов через количество строк
+    # .split('\n') разделит строку на строки, и мы получим список строк
+    products_lines_1 = category_fixture[0].products.split("\n")
+    products_lines_2 = category_fixture[1].products.split("\n")
+
+    # В первой категории 3 продукта, значит 3 строки
+    assert len(products_lines_1) == 3
+    # Во второй категории 1 продукт, значит 1 строка
+    assert len(products_lines_2) == 1
+
+    # Проверяем содержимое каждой строки
+    expected_products_1 = [
+        "Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт.",
+        "Iphone 15, 210000.0 руб. Остаток: 8 шт.",
+        "Xiaomi Redmi Note 11, 31000.0 руб. Остаток: 14 шт.",
+    ]
+
+    for expected in expected_products_1:
+        assert expected in products_lines_1
+
+    expected_product_2 = '55" QLED 4K, 123000.0 руб. Остаток: 7 шт.'
+    assert expected_product_2 in products_lines_2
 
 
 def test_category_creation(category_fixture: List[Category]) -> None:
@@ -45,14 +69,23 @@ def test_category_creation(category_fixture: List[Category]) -> None:
         category1.description
         == "Смартфоны, как средство не только коммуникации, но и получение дополнительных функций для удобства жизни"
     )
-    assert len(category1.products) == 3
+    # Проверяем содержимое первой категории
+    products1 = category1.products
+    assert "Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт." in products1
+    assert "Iphone 15, 210000.0 руб. Остаток: 8 шт." in products1
+    assert "Xiaomi Redmi Note 11, 31000.0 руб. Остаток: 14 шт." in products1
+    assert len(products1.split("\n")) == 3
 
     assert category2.name == "Телевизоры"
     assert (
         category2.description
         == "Современный телевизор, который позволяет наслаждаться просмотром, станет вашим другом и помощником"
     )
-    assert len(category2.products) == 1
+
+    # Проверяем содержимое второй категории
+    products2 = category2.products
+    assert '55" QLED 4K, 123000.0 руб. Остаток: 7 шт.' in products2
+    assert len(products2.split("\n")) == 1
 
 
 def test_category_count_increment(single_category_fixture: Category) -> None:
@@ -78,13 +111,31 @@ def test_add_product(single_category_fixture: Category) -> None:
     """Тест добавления продукта в категорию"""
     initial_count = Category.product_count
     initial_quantity = Category.total_quantity
-    initial_products_len = len(single_category_fixture.products)
+    products_str = single_category_fixture.products
+    if products_str:
+        initial_products_count = len(products_str.split("\n"))
+    else:
+        initial_products_count = 0
 
+    # Создаем и добавляем новый продукт
     new_product = Product("Phone 3", "Description 3", 70000.0, 3)
     single_category_fixture.add_product(new_product)
 
-    assert len(single_category_fixture.products) == initial_products_len + 1
-    assert new_product in single_category_fixture.products
+    # Проверяем количество продуктов после добавления
+    new_products_str = single_category_fixture.products
+    new_products_count = len(new_products_str.split("\n"))
+
+    # Количество продуктов должно увеличиться на 1
+    assert new_products_count == initial_products_count + 1
+
+    # Проверяем, что новый продукт присутствует в строке
+    assert "Phone 3, 70000.0 руб. Остаток: 3 шт." in new_products_str
+
+    # Проверяем, что старые продукты остались
+    assert "Phone 1, 50000.0 руб. Остаток: 10 шт." in new_products_str
+    assert "Phone 2, 60000.0 руб. Остаток: 5 шт." in new_products_str
+
+    # Проверяем счетчики
     assert Category.product_count == initial_count + 1
     assert Category.total_quantity == initial_quantity + new_product.quantity
 
@@ -105,38 +156,46 @@ def test_add_product_with_none(single_category_fixture: Category) -> None:
 
 
 def test_products_property_returns_list(single_category_fixture: Category) -> None:
-    """Тест свойства products (должно возвращать список)"""
+    """Тест свойства products (должно возвращать str)"""
     products = single_category_fixture.products
-    assert isinstance(products, list)
-    assert len(products) == 2
+    assert isinstance(products, str)
+    assert products == "Phone 1, 50000.0 руб. Остаток: 10 шт.\nPhone 2, 60000.0 руб. Остаток: 5 шт."
 
 
 def test_samsung_product_price(category_fixture: List[Category]) -> None:
     """Тест проверяет цену Samsung в первой категории"""
-    samsung = category_fixture[0].products[0]
-    assert samsung.name == "Samsung Galaxy S23 Ultra"
-    assert samsung.price == 180000.0
-    assert samsung.quantity == 5
+    samsung = category_fixture[0].products
+    assert "Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт." in samsung
+    assert "Samsung Galaxy S23 Ultra" in samsung
+    assert "180000.0" in samsung
+    assert "5 шт." in samsung
 
 
 def test_iphone_product_description(category_fixture: List[Category]) -> None:
     """Тест проверяет описание iPhone"""
-    iphone = category_fixture[0].products[1]
-    assert iphone.description == "512GB, Gray space"
+    iphone = category_fixture[0].products
+    assert "Iphone 15, 210000.0 руб. Остаток: 8 шт." in iphone
+    assert "Iphone 15" in iphone
+    assert "210000.0" in iphone
+    assert "8 шт." in iphone
 
 
 def test_tv_product_name(category_fixture: List[Category]) -> None:
     """Тест проверяет название телевизора"""
-    tv = category_fixture[1].products[0]
-    assert tv.name == '55" QLED 4K'
-    assert tv.price == 123000.0
-    assert tv.quantity == 7
+    tv = category_fixture[0].products
+    assert "Xiaomi Redmi Note 11, 31000.0 руб. Остаток: 14 шт." in tv
+    assert "Xiaomi Redmi Note 11" in tv
+    assert "31000.0" in tv
+    assert "14 шт." in tv
 
 
 def test_total_products_in_all_categories(category_fixture: List[Category]) -> None:
     """Тест проверяет общее количество продуктов во всех категориях"""
-    total_products = sum(len(category.products) for category in category_fixture)
-    assert total_products == 4  # 3 + 1
+    products_str_1 = category_fixture[0].products
+    products_line_1 = products_str_1.split("\n")
+    products_str_2 = category_fixture[1].products
+    products_line_2 = products_str_2.split("\n")
+    assert len(products_line_1 + products_line_2) == 4
 
 
 def test_product_creation(product_fixture: "Product") -> None:

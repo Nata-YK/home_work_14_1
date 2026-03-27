@@ -18,6 +18,13 @@ def product_fixture() -> Product:
 
 @pytest.fixture
 def category_fixture() -> List[Category]:
+    """Фикстура для создания тестовых категорий"""
+    # Сбрасываем счетчики
+    Product.product_count = 0
+    Category.product_count = 0
+    Category.category_count = 0
+    Category.total_quantity = 0
+
     return [
         Category(
             name="Смартфоны",

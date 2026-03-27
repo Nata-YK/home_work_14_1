@@ -25,9 +25,20 @@ class Category:
                 Category.total_quantity += product.quantity  # сумма quantity
 
     @property
-    def products(self) -> List["Product"]:
-        """Геттер, возвращающий список продуктов"""
-        return self.__products
+    def products(self) -> str:
+        """Геттер, возвращающий строку со списком продуктов в отформатированном виде"""
+        if not self.__products:
+            return ""
+
+        # Формируем строку с продуктами
+        result_lines = []
+        for product in self.__products:
+            # Формат: "Название продукта, X руб. Остаток: X шт."
+            line = f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт."
+            result_lines.append(line)
+
+        # Объединяем строки с переносом
+        return "\n".join(result_lines)
 
     def add_product(self, product: "Product") -> None:
         """
@@ -38,8 +49,3 @@ class Category:
             self.__products.append(product)
             Category.product_count += 1
             Category.total_quantity += product.quantity
-
-    @property
-    def get_info(self) -> str:
-        """Метод для получения информации о категории"""
-        return f"Категория: {self.name}, Товаров: {len(self.__products)}.\n"

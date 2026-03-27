@@ -31,8 +31,3 @@ class Product:
     def new_product(cls, product_data: Dict[str, Any]) -> "Product":
         """Класс-метод для создания нового продукта из словаря"""
         return cls(product_data["name"], product_data["description"], product_data["price"], product_data["quantity"])
-
-    @property
-    def get_info(self) -> str:
-        """Метод для получения информации о продукте"""
-        return f"{self.name}, {self.price} руб. Остаток: {self.quantity} шт.\n)"
