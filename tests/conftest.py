@@ -1,4 +1,4 @@
-from typing import List
+from typing import Generator, List
 
 import pytest
 
@@ -18,6 +18,13 @@ def product_fixture() -> Product:
 
 @pytest.fixture
 def category_fixture() -> List[Category]:
+    """Фикстура для создания тестовых категорий"""
+    # Сбрасываем счетчики
+    Product.product_count = 0
+    Category.product_count = 0
+    Category.category_count = 0
+    Category.total_quantity = 0
+
     return [
         Category(
             name="Смартфоны",
@@ -41,3 +48,43 @@ def category_fixture() -> List[Category]:
             products=[Product(name='55" QLED 4K', description="Фоновая подсветка", price=123000.0, quantity=7)],
         ),
     ]
+
+
+@pytest.fixture(autouse=True)
+def reset_counters() -> Generator[None, None, None]:
+    """Автоматически сбрасывает счетчики перед каждым тестом"""
+    Product.product_count = 0
+    Category.product_count = 0
+    Category.category_count = 0
+    Category.total_quantity = 0
+    yield
+    # После теста тоже сбрасываем (на всякий случай)
+    Product.product_count = 0
+    Category.product_count = 0
+    Category.category_count = 0
+    Category.total_quantity = 0
+
+
+@pytest.fixture
+def sample_product() -> Product:
+    """Фикстура для создания тестового продукта"""
+    return Product("Sample Product", "Sample Description", 1000.0, 10)
+
+
+@pytest.fixture
+def sample_category(sample_product: Product) -> Category:
+    """Фикстура для создания тестовой категории"""
+    return Category("Sample Category", "Sample Description", [sample_product])
+
+
+@pytest.fixture
+def single_category_fixture() -> Category:
+    """Фикстура для создания одной категории"""
+    Category.product_count = 0
+    Category.category_count = 0
+    Category.total_quantity = 0
+
+    product1 = Product("Phone 1", "Description 1", 50000.0, 10)
+    product2 = Product("Phone 2", "Description 2", 60000.0, 5)
+
+    return Category("Smartphones", "Best smartphones", [product1, product2])
