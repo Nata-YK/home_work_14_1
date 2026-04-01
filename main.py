@@ -66,7 +66,6 @@ if __name__ == "__main__":
         [product1, product2, product3],
     )
 
-    print(category1.products)
     product4 = Product('55" QLED 4K', "Фоновая подсветка", 123000.0, 7)
     category1.add_product(product4)
     print(category1.products)
@@ -92,3 +91,17 @@ if __name__ == "__main__":
     print(new_product.price)
     new_product.price = 0
     print(new_product.price)
+
+    print("# homwork14_3****************************", 20 * "*")
+
+    print(str(product1))
+    print(str(product2))
+    print(str(product3))
+
+    print(str(category1))
+
+    print(category1.products)
+
+    print(product1 + product2)
+    print(product1 + product3)
+    print(product2 + product3)

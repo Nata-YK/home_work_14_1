@@ -1,4 +1,4 @@
-from typing import Any, Dict
+from typing import Any, Dict, Union
 
 
 class Product:
@@ -14,6 +14,18 @@ class Product:
         self.price = price
         self.quantity = quantity
         Product.product_count += 1
+
+    def __str__(self) -> str:
+        return f"{self.name}, {self.price} руб. Остаток: {self.quantity} шт."
+
+    def __add__(self, other: Union["Product", float, int]) -> Union[int, float]:
+        if isinstance(other, Product):
+            cost_product = (self.price * self.quantity) + (other.price * other.quantity)
+            return cost_product
+        elif isinstance(other, (int, float)):
+            return (self.price * self.quantity) + other
+        else:
+            raise TypeError(f"Неверный тип файла: {type(other).__name__}")
 
     @property
     def price(self) -> float:
