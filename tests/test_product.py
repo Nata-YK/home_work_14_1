@@ -101,13 +101,13 @@ def test_product_count_in_category(category_fixture: List[Category]) -> None:
     assert Category.product_count == 4
 
 
-def test_total_quantity_in_category(category_fixture: List[Category]) -> None:
+def test_total_quantity_all_category(category_fixture: List[Category]) -> None:
     """Тест подсчета общего количества товаров"""
     # 5 + 8 + 14 + 7 = 34
     assert Category.total_quantity == 34
 
 
-def test_total_quantity_in_category(category_fixture: List[Category]) -> None:
+def test_total_quantity_in_cat(category_fixture: List[Category]) -> None:
     for category in category_fixture:
         if category.name == "Смартфоны":
             assert category.total_quantity_in_category == 27

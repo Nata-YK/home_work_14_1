@@ -1,6 +1,6 @@
 from src.category import Category
 from src.product import Product
-from src.utils import read_json, objects_from_json
+
 
 if __name__ == "__main__":
     # product1 = Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
@@ -130,7 +130,7 @@ if __name__ == "__main__":
     print(category2)
 
     # Выводим общую статистику
-    print(f"\n=== Статистика ===")
+    print("\n=== Статистика ===")
     print(f"Всего категорий: {Category.category_count}")
     print(f"Всего продуктов (наименований): {Category.product_count}")
     print(f"Всего товаров (штук): {Category.total_quantity}")
