@@ -107,6 +107,14 @@ def test_total_quantity_in_category(category_fixture: List[Category]) -> None:
     assert Category.total_quantity == 34
 
 
+def test_total_quantity_in_category(category_fixture: List[Category]) -> None:
+    for category in category_fixture:
+        if category.name == "Смартфоны":
+            assert category.total_quantity_in_category == 27
+        if category.name == "Телевизоры":
+            assert category.total_quantity_in_category == 7
+
+
 def test_add_product(single_category_fixture: Category) -> None:
     """Тест добавления продукта в категорию"""
     initial_count = Category.product_count
