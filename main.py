@@ -1,6 +1,7 @@
 from src.category import Category
 from src.product import Product
 
+
 if __name__ == "__main__":
     # product1 = Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
     # product2 = Product("Iphone 15", "512GB, Gray space", 210000.0, 8)
@@ -53,42 +54,85 @@ if __name__ == "__main__":
     # raw_dict = read_json("data/products.json")
     # objects_category = objects_from_json(raw_dict)
     # print(f"{objects_category[0].name}, {objects_category[1].name}")
-    # #print(objects_category[0].products, objects_category[1].products)
+    # print(objects_category[0].products, objects_category[1].products)
 
     # homwork14_2****************************
-    product1 = Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
-    product2 = Product("Iphone 15", "512GB, Gray space", 210000.0, 8)
-    product3 = Product("Xiaomi Redmi Note 11", "1024GB, Синий", 31000.0, 14)
+    # product1 = Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
+    # product2 = Product("Iphone 15", "512GB, Gray space", 210000.0, 8)
+    # product3 = Product("Xiaomi Redmi Note 11", "1024GB, Синий", 31000.0, 14)
+    #
+    # category1 = Category(
+    #     "Смартфоны",
+    #     "Смартфоны, как средство не только коммуникации, но и получения дополнительных функций для удобства жизни",
+    #     [product1, product2, product3],
+    # )
+    # # Категория с одним продуктом
+    # print(category1.total_quantity)
+    #
+    # product4 = Product('55" QLED 4K', "Фоновая подсветка", 123000.0, 7)
+    # category1.add_product(product4)
+    # print(category1.products)
+    # print(category1.product_count)
+    #
+    # new_product = Product.new_product(
+    #     {
+    #         "name": "Samsung Galaxy S23 Ultra",
+    #         "description": "256GB, Серый цвет, 200MP камера",
+    #         "price": 180000.0,
+    #         "quantity": 5,
+    #     }
+    # )
+    # print(new_product.name)
+    # print(new_product.description)
+    # print(new_product.price)
+    # print(new_product.quantity)
+    #
+    # new_product.price = 800
+    # print(new_product.price)
+    #
+    # new_product.price = -100
+    # print(new_product.price)
+    # new_product.price = 0
+    # print(new_product.price)
 
-    category1 = Category(
-        "Смартфоны",
-        "Смартфоны, как средство не только коммуникации, но и получения дополнительных функций для удобства жизни",
-        [product1, product2, product3],
-    )
+    print("# homwork14_3****************************", 20 * "*")
+    category2 = [
+        Category(
+            name="Смартфоны",
+            description="Смартфоны, как средство не только коммуникации, но и получение дополнительных функций "
+            "для удобства жизни",
+            products=[
+                Product(
+                    name="Samsung Galaxy S23 Ultra",
+                    description="256GB, Серый цвет, 200MP камера",
+                    price=180000.0,
+                    quantity=5,
+                ),
+                Product(name="Iphone 15", description="512GB, Gray space", price=210000.0, quantity=8),
+                Product(name="Xiaomi Redmi Note 11", description="1024GB, Синий", price=31000.0, quantity=14),
+            ],
+        ),
+        Category(
+            name="Телевизоры",
+            description="Современный телевизор, который позволяет наслаждаться просмотром, станет вашим другом "
+            "и помощником",
+            products=[Product(name='55" QLED 4K', description="Фоновая подсветка", price=123000.0, quantity=7)],
+        ),
+    ]
 
-    print(category1.products)
-    product4 = Product('55" QLED 4K', "Фоновая подсветка", 123000.0, 7)
-    category1.add_product(product4)
-    print(category1.products)
-    print(category1.product_count)
+    # Выводим каждую категорию
+    print("=== Вывод категорий ===")
+    for category in category2:
+        print(category)
 
-    new_product = Product.new_product(
-        {
-            "name": "Samsung Galaxy S23 Ultra",
-            "description": "256GB, Серый цвет, 200MP камера",
-            "price": 180000.0,
-            "quantity": 5,
-        }
-    )
-    print(new_product.name)
-    print(new_product.description)
-    print(new_product.price)
-    print(new_product.quantity)
+    # Выводим список категорий (будет использовать __repr__)
+    print("\n=== Список категорий ===")
+    print(category2)
 
-    new_product.price = 800
-    print(new_product.price)
+    # Выводим общую статистику
+    print("\n=== Статистика ===")
+    print(f"Всего категорий: {Category.category_count}")
+    print(f"Всего продуктов (наименований): {Category.product_count}")
+    print(f"Всего товаров (штук): {Category.total_quantity}")
 
-    new_product.price = -100
-    print(new_product.price)
-    new_product.price = 0
-    print(new_product.price)
+    # print(category1.total_quantity)

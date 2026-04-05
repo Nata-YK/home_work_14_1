@@ -24,6 +24,7 @@ def category_fixture() -> List[Category]:
     Category.product_count = 0
     Category.category_count = 0
     Category.total_quantity = 0
+    Category.total_quantity_in_category = 0
 
     return [
         Category(

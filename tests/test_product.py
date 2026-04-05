@@ -101,10 +101,18 @@ def test_product_count_in_category(category_fixture: List[Category]) -> None:
     assert Category.product_count == 4
 
 
-def test_total_quantity_in_category(category_fixture: List[Category]) -> None:
+def test_total_quantity_all_category(category_fixture: List[Category]) -> None:
     """Тест подсчета общего количества товаров"""
     # 5 + 8 + 14 + 7 = 34
     assert Category.total_quantity == 34
+
+
+def test_total_quantity_in_cat(category_fixture: List[Category]) -> None:
+    for category in category_fixture:
+        if category.name == "Смартфоны":
+            assert category.total_quantity_in_category == 27
+        if category.name == "Телевизоры":
+            assert category.total_quantity_in_category == 7
 
 
 def test_add_product(single_category_fixture: Category) -> None:
@@ -224,3 +232,16 @@ def test_price_setter_zero(product_fixture: "Product", capsys: Any) -> None:
     captured = capsys.readouterr()
     assert "Цена не должна быть нулевая или отрицательная" in captured.out
     assert product_fixture.price == original_price
+
+
+def test__add__product() -> None:
+    product1 = Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
+    product2 = Product("Iphone 15", "512GB, Gray space", 210000.0, 8)
+    product3 = Product("Xiaomi Redmi Note 11", "1024GB, Синий", 31000.0, 14)
+
+    assert isinstance(product1, Product)
+    assert isinstance(product2, Product)
+    assert isinstance(product3, Product)
+    assert product1 + product2 == 2580000.0
+    assert product1 + product3 == 1334000.0
+    assert isinstance(product3, Product), "Неверный тип: ожидается Product"
