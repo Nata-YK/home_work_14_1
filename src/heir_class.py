@@ -24,7 +24,7 @@ class LawnGrass (Product):
                  color: str):
         super().__init__(name, description, price, quantity)
         self.country = country
-        self.germination_period = germination_periodsupclass
+        self.germination_period = germination_period
         self.color = color
 
     def __add__(self, other):
