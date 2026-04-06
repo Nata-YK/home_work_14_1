@@ -60,7 +60,11 @@ class Category:
         Метод для добавления товара в категорию
         Принимает объект класса Product и добавляет его в приватный список.
         """
-        if product is not None:
-            self.__products.append(product)
-            Category.product_count += 1
-            Category.total_quantity += product.quantity
+        try:
+            if product is not None:
+                self.__products.append(product)
+                Category.product_count += 1
+                Category.total_quantity += product.quantity
+                print("Не возникла ошибка TypeError при добавлении не продукта")
+        except: TypeError
+        print("Возникла ошибка TypeError при добавлении не продукта")
