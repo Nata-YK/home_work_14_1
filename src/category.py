@@ -1,6 +1,6 @@
 from typing import List, Optional, Union
 
-from src.heir_class import Smartphone, LawnGrass
+from src.heir_class import LawnGrass, Smartphone
 from src.product import Product
 
 
@@ -58,7 +58,7 @@ class Category:
 
     def add_product(self, product: Union[Product, Smartphone, LawnGrass]) -> None:
         """
-        Метод для добавления товара в категорию
+        Класс-метод для добавления товара в категорию
         Принимает только объекты Product, Smartphone или LawnGrass
         """
 

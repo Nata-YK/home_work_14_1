@@ -1,5 +1,5 @@
 from src.category import Category
-from src.heir_class import Smartphone, LawnGrass
+from src.heir_class import LawnGrass, Smartphone
 from src.product import Product
 
 if __name__ == "__main__":

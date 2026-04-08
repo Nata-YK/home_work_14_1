@@ -2,7 +2,6 @@ from typing import Generator, List
 
 import pytest
 
-
 from src.category import Category
 from src.heir_class import Smartphone
 from src.product import Product

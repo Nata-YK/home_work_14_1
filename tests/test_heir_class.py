@@ -1,6 +1,7 @@
 import pytest
+
 from src.category import Category
-from src.heir_class import Smartphone, LawnGrass
+from src.heir_class import LawnGrass, Smartphone
 
 
 def test_add_product_with_none(single_category_fixture: Category) -> None:
