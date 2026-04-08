@@ -2,7 +2,9 @@ from typing import Generator, List
 
 import pytest
 
+
 from src.category import Category
+from src.heir_class import Smartphone
 from src.product import Product
 
 
@@ -89,3 +91,42 @@ def single_category_fixture() -> Category:
     product2 = Product("Phone 2", "Description 2", 60000.0, 5)
 
     return Category("Smartphones", "Best smartphones", [product1, product2])
+
+
+@pytest.fixture
+def single_category_fixture_for_smart() -> Category:
+    """Фикстура для создания категории с одним продуктом"""
+    Category.product_count = 0
+    Category.category_count = 0
+    Category.total_quantity = 0
+    product_smart_1 = Smartphone(
+        name="Samsung Galaxy S23 Ultra",
+        description="256GB, Серый цвет, 200MP камера",
+        price=180000.0,
+        quantity=5,
+        efficiency=95.5,
+        model="S23 Ultra",
+        memory=512,
+        color="blue",
+    )
+    return Category(
+        name="Смартфоны",
+        description="Смартфоны, как средство не только коммуникации, но и получение дополнительных функций "
+        "для удобства жизни",
+        products=[product_smart_1],
+    )
+
+
+@pytest.fixture
+def smartphone() -> Smartphone:
+    """Фикстура для создания смартфона"""
+    return Smartphone(
+        name="Iphone 15",
+        description="512GB, Gray space",
+        price=210000.0,
+        quantity=8,
+        efficiency=110.0,
+        model="15",
+        memory=256,
+        color="violet",
+    )

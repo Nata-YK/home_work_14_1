@@ -2,7 +2,6 @@ from src.category import Category
 from src.heir_class import Smartphone, LawnGrass
 from src.product import Product
 
-
 if __name__ == "__main__":
     # product1 = Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
     # product2 = Product("Iphone 15", "512GB, Gray space", 210000.0, 8)
@@ -139,8 +138,9 @@ if __name__ == "__main__":
     # print(category1.total_quantity)
     print("# homwork14_4****************************", 20 * "*")
 
-    smartphone1 = Smartphone("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5, 95.5,
-                             "S23 Ultra", 256, "Серый")
+    smartphone1 = Smartphone(
+        "Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5, 95.5, "S23 Ultra", 256, "Серый"
+    )
     smartphone2 = Smartphone("Iphone 15", "512GB, Gray space", 210000.0, 8, 98.2, "15", 512, "Gray space")
     smartphone3 = Smartphone("Xiaomi Redmi Note 11", "1024GB, Синий", 31000.0, 14, 90.3, "Note 11", 1024, "Синий")
 

@@ -1,5 +1,5 @@
 from typing import Any, List
-
+import pytest
 from src.category import Category
 from src.product import Product
 
@@ -149,16 +149,17 @@ def test_add_product(single_category_fixture: Category) -> None:
 
 
 def test_add_product_with_none(single_category_fixture: Category) -> None:
-    """Тест добавления None в категорию - ничего не происходит"""
+    """Тест добавления None в категорию - должно вызывать TypeError"""
     initial_count = Category.product_count
     initial_quantity = Category.total_quantity
-    initial_products_len = len(single_category_fixture.products)
+    initial_products_len = len(single_category_fixture._Category__products)
 
-    # Добавляем None - метод должен обработать это корректно
-    single_category_fixture.add_product(None)
+    # Проверяем, что добавление None вызывает TypeError
+    with pytest.raises(TypeError):
+        single_category_fixture.add_product(None)
 
     # Проверяем, что ничего не изменилось
-    assert len(single_category_fixture.products) == initial_products_len
+    assert len(single_category_fixture._Category__products) == initial_products_len
     assert Category.product_count == initial_count
     assert Category.total_quantity == initial_quantity
 

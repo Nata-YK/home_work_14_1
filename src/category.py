@@ -1,5 +1,6 @@
-from typing import List, Optional
+from typing import List, Optional, Union
 
+from src.heir_class import Smartphone, LawnGrass
 from src.product import Product
 
 
@@ -55,16 +56,22 @@ class Category:
         # Объединяем строки с переносом
         return "\n".join(result_lines)
 
-    def add_product(self, product: "Product") -> None:
+    def add_product(self, product: Union[Product, Smartphone, LawnGrass]) -> None:
         """
         Метод для добавления товара в категорию
-        Принимает объект класса Product и добавляет его в приватный список.
+        Принимает только объекты Product, Smartphone или LawnGrass
         """
-        try:
+
+        if isinstance(product, (Smartphone, LawnGrass, Product)):
+
             if product is not None:
                 self.__products.append(product)
                 Category.product_count += 1
                 Category.total_quantity += product.quantity
-                print("Не возникла ошибка TypeError при добавлении не продукта")
-        except: TypeError
-        print("Возникла ошибка TypeError при добавлении не продукта")
+                print(
+                    f"Не возникла ошибка TypeError при добавлении продукта: {type(product).__name__}. "
+                    f"Ожидается Product, Smartphone или LawnGrass"
+                )
+
+        else:
+            raise TypeError(f"Возникла ошибка TypeError при добавлении не продукта. Получен: {type(product).__name__}")
