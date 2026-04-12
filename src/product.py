@@ -1,7 +1,10 @@
 from typing import Any, Dict, Union
 
+from src.base_class import BaseProduct
+from src.product_mixin_hw import ProductMixin
 
-class Product:
+
+class Product(ProductMixin, BaseProduct):
     name: str
     description: str
     __price: float
@@ -13,6 +16,7 @@ class Product:
         self.description = description
         self.price = price
         self.quantity = quantity
+        super().__init__()
         Product.product_count += 1
 
     def __str__(self) -> str:

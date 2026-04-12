@@ -62,7 +62,7 @@ def test_smartphone_add_with_none() -> None:
         phone + None
 
 
-def test_lawn_grass_add_with_none():
+def test_lawn_grass_add_with_none() -> None:
     """Тест сложения газонной травы с None"""
     grass = LawnGrass("Test", "Desc", 50, 100, "USA", "7 days", "Green")
 

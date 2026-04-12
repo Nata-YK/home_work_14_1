@@ -17,6 +17,7 @@ class Category:
         self.name = name
         self.description = description
         self.__products = products if products else []
+        super().__init__()
         # Увеличиваем счетчик категорий
         Category.category_count += 1
 
