@@ -26,9 +26,9 @@ class Smartphone(Product):
         self.memory = memory
         self.color = color
 
-    def __add__(self, other: Union[Product, int, float]) -> Union[int, float]:
+    def __add__(self, other: Union["Smartphone", int, float]) -> Union[int, float]:
         if type(other) is not type(self):
-            raise TypeError(f"Товар не относится к классу {Smartphone}")
+            raise TypeError(f"Товар не относится к классу {Smartphone.__name__}")
         cost_product = (self.price * self.quantity) + (other.price * other.quantity)
         return cost_product
 
@@ -53,8 +53,8 @@ class LawnGrass(Product):
         self.germination_period = germination_period
         self.color = color
 
-    def __add__(self, other: Union[Product, float, int]) -> Union[int, float]:
+    def __add__(self, other: Union["LawnGrass", int, float]) -> Union[int, float]:
         if type(other) is not type(self):
-            raise TypeError("Товар не относится к классу")
+            raise TypeError(f"Товар не относится к классу {LawnGrass.__name__}")
         cost_product = (self.price * self.quantity) + (other.price * other.quantity)
         return cost_product
